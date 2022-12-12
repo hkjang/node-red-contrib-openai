@@ -1,0 +1,9 @@
+{
+  "openai" : {
+    "label" : {
+      "api": "api"
+    },
+    "desc" : {
+      "api": "kind of API(completions, edits, images/generations, images/edits, images/variations, embeddings, fine-tunes, moderations)"
+  }
+}

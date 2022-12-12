@@ -1,0 +1,10 @@
+{
+  "openai" : {
+    "label" : {
+      "api": "API"
+    },
+    "desc" : {
+      "api": "API 종류(completions, edits, images/generations, images/edits, images/variations, embeddings, fine-tunes, moderations)"
+    }
+  }
+}

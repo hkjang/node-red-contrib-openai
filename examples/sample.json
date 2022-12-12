@@ -1,0 +1,407 @@
+[
+  {
+    "id": "0d52ffcad06954ef",
+    "type": "openai",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "api": "",
+    "query": "",
+    "creds": "cc2050a953749795",
+    "x": 490,
+    "y": 40,
+    "wires": [
+      [
+        "49da3439585bd9a3"
+      ]
+    ]
+  },
+  {
+    "id": "3d8bfb0be9994c4d",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 40,
+    "wires": [
+      [
+        "60b68cee014c0435"
+      ]
+    ]
+  },
+  {
+    "id": "60b68cee014c0435",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "completions",
+    "func": "msg.api = 'completions';\nmsg.params = {\n    \"model\": \"text-davinci-003\",\n    \"prompt\": \"Say this is a test\",\n    \"max_tokens\": 7,\n    \"temperature\": 0\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 290,
+    "y": 40,
+    "wires": [
+      [
+        "0d52ffcad06954ef"
+      ]
+    ]
+  },
+  {
+    "id": "49da3439585bd9a3",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 6",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "6f81f4a3de6db513",
+    "type": "openai",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "api": "",
+    "query": "",
+    "creds": "cc2050a953749795",
+    "x": 490,
+    "y": 120,
+    "wires": [
+      [
+        "869a5d806cc50107"
+      ]
+    ]
+  },
+  {
+    "id": "9e1f34cfae373eb9",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 120,
+    "wires": [
+      [
+        "991a8313a2cab258"
+      ]
+    ]
+  },
+  {
+    "id": "991a8313a2cab258",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "images/generations",
+    "func": "msg.api = 'images/generations';\nmsg.params = {\n    \"prompt\": \"A cute baby sea otter\",\n    \"n\": 2,\n    \"size\": \"1024x1024\"\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 310,
+    "y": 120,
+    "wires": [
+      [
+        "6f81f4a3de6db513"
+      ]
+    ]
+  },
+  {
+    "id": "869a5d806cc50107",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 7",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "1295de0b07100713",
+    "type": "openai",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "api": "",
+    "query": "",
+    "creds": "cc2050a953749795",
+    "x": 490,
+    "y": 160,
+    "wires": [
+      [
+        "38b1cb2c366662c6"
+      ]
+    ]
+  },
+  {
+    "id": "9456b548f1af7b4e",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 160,
+    "wires": [
+      [
+        "071ca84bf3b11c0a"
+      ]
+    ]
+  },
+  {
+    "id": "071ca84bf3b11c0a",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "embeddings",
+    "func": "msg.api = 'embeddings';\nmsg.params = {\n    \"input\": \"The food was delicious and the waiter...\",\n    \"model\": \"text-similarity-babbage-001\"\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 290,
+    "y": 160,
+    "wires": [
+      [
+        "1295de0b07100713"
+      ]
+    ]
+  },
+  {
+    "id": "38b1cb2c366662c6",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 8",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "e4c7c21a92b140b4",
+    "type": "openai",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "api": "",
+    "query": "",
+    "creds": "cc2050a953749795",
+    "x": 490,
+    "y": 200,
+    "wires": [
+      [
+        "a4b90856e183068a"
+      ]
+    ]
+  },
+  {
+    "id": "ee06b57774344783",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 200,
+    "wires": [
+      [
+        "ad5c86c64c07b775"
+      ]
+    ]
+  },
+  {
+    "id": "ad5c86c64c07b775",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "moderations",
+    "func": "msg.api = 'moderations';\nmsg.params = {\n    \"input\": \"I want to love them.\"\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 290,
+    "y": 200,
+    "wires": [
+      [
+        "e4c7c21a92b140b4"
+      ]
+    ]
+  },
+  {
+    "id": "a4b90856e183068a",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 9",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "0fea5bec0cb866ed",
+    "type": "openai",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "api": "",
+    "query": "",
+    "creds": "cc2050a953749795",
+    "x": 490,
+    "y": 80,
+    "wires": [
+      [
+        "7d37ac44609b4d27"
+      ]
+    ]
+  },
+  {
+    "id": "664c11412d21d763",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 80,
+    "wires": [
+      [
+        "61b355f7fba423f4"
+      ]
+    ]
+  },
+  {
+    "id": "61b355f7fba423f4",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "edits",
+    "func": "msg.api = 'edits';\nmsg.params = {\n    \"model\": \"text-davinci-edit-001\",\n    \"input\": \"What day of the wek is it?\",\n    \"instruction\": \"Fix the spelling mistakes\"\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 270,
+    "y": 80,
+    "wires": [
+      [
+        "0fea5bec0cb866ed"
+      ]
+    ]
+  },
+  {
+    "id": "7d37ac44609b4d27",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 10",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "cc2050a953749795",
+    "type": "openaiApiKey",
+    "name": ""
+  }
+]

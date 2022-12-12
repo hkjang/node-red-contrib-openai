@@ -1,0 +1,95 @@
+<script type="text/html" data-template-name="openai">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span
+                data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-creds"> <i class="fa fa-key fa-fw"></i> API key</span></label>
+        <input type="text" id="node-input-creds">
+    </div>
+    <div class="form-row"><label for="node-input-api"><i class="fa"></i> <span
+            data-i18n="openai.label.api"></span> </label> <input type="text"
+                                                                        id="node-input-api"
+                                                                        data-i18n="[placeholder]openai.desc.api">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="openai">
+    <p>Summary of the node.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload<span class="property-type">object</span></dt>
+        <dd>Explanation of payload.</dd>
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>Explanation of topic.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload<span class="property-type">object</span></dt>
+        <dd>Explanation of payload.</dd>
+        <dt class="optional">topic<span class="property-type">string</span></dt>
+        <dd>Explanation of topic.</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>Explanation of the details.</p>
+    <p><b>Note</b>: Note of the node.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('openai', {
+        color: '#ffffff',
+        category: 'function',
+        defaults: {
+            name: {value: ''},
+            api: {value: "", required: false},
+            creds: {
+                value: "",
+                type: "openaiApiKey"
+            },
+        },
+        inputs: 1,
+        outputs: 1,
+        label: function () {
+            return this.name || 'openai';
+        },
+        icon: 'icon.png',
+        align: 'left'
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="openaiApiKey">
+    <div class="form-row">
+        <label for="node-input-name"> <i class="fa fa-tag fa-fw"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-organization"> Organization</label>
+      <input type="text" id="node-config-input-organization" placeholder="Organization">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-api_key"> API KEY</label>
+      <input type="text" id="node-config-input-api_key" placeholder="API KEY">
+    </div>
+
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('openaiApiKey', {
+        category: 'config',
+        defaults: {
+            name: {value: ""}
+        },
+        credentials: {
+            organization: {},
+            api_key: {},
+        },
+        label: function () {
+            return this.name || 'API Key';
+        }
+    });
+</script>
+
