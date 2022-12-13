@@ -34,3 +34,6 @@ You can make this json string into a flow by using the node-red flow import func
 - [sample.json](examples/sample.json)
 
 
+![alt](examples/sample.png)
+
+![alt](examples/result.png)
