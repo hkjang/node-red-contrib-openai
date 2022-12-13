@@ -129,7 +129,7 @@
     "type": "function",
     "z": "992f1604502dfb89",
     "name": "images/generations",
-    "func": "msg.api = 'images/generations';\nmsg.params = {\n    \"prompt\": \"A cute baby sea otter\",\n    \"n\": 2,\n    \"size\": \"1024x1024\"\n}\nreturn msg;",
+    "func": "// 바닷가에서 우주선 위에서 뛰고 있는 웰시코기 강아지 그림을 하나 그려주세요. \n// Draw a picture of a Welsh Corgi puppy jumping on a spaceship at the beach.\n// Picture of a Welsh Corgi puppy watching the Qatar World Cup football match\n\nmsg.api = 'images/generations';\nmsg.params = {\n    \"prompt\": \"Picture of a Welsh Corgi puppy watching the Qatar World Cup football match\",\n    \"n\": 10,\n    \"size\": \"1024x1024\"\n}\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -397,6 +397,385 @@
     "statusType": "auto",
     "x": 640,
     "y": 80,
+    "wires": []
+  },
+  {
+    "id": "c5c0802857ec85dc",
+    "type": "http request",
+    "z": "992f1604502dfb89",
+    "name": "file download",
+    "method": "GET",
+    "ret": "bin",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 510,
+    "y": 360,
+    "wires": [
+      [
+        "68910284fe09bf02",
+        "9d00caf15bb35304"
+      ]
+    ]
+  },
+  {
+    "id": "0d36f9f43374775e",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 360,
+    "wires": [
+      [
+        "1cf1f404ddbd6e11"
+      ]
+    ]
+  },
+  {
+    "id": "4476731c9dfab059",
+    "type": "file",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "filename": "filename",
+    "filenameType": "msg",
+    "appendNewline": true,
+    "createDir": false,
+    "overwriteFile": "true",
+    "encoding": "none",
+    "x": 880,
+    "y": 360,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "68910284fe09bf02",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 11",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 720,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "9d00caf15bb35304",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "set filename",
+    "func": "msg.filename = 'D:\\\\download\\\\'+msg.filename \nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 730,
+    "y": 360,
+    "wires": [
+      [
+        "4476731c9dfab059"
+      ]
+    ]
+  },
+  {
+    "id": "1cf1f404ddbd6e11",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "set url",
+    "func": "// msg.url = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-SCLTb2ewE6eMW58Etzdfylpb.png?st=2022-12-12T03%3A48%3A08Z&se=2022-12-12T05%3A48%3A08Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T03%3A18%3A35Z&ske=2022-12-13T03%3A18%3A35Z&sks=b&skv=2021-08-06&sig=TpyjubAqF061ToVFtweYxXgzoBa%2BUDy2wmh/8AS9pq4%3D';\nmsg.url = msg.payload.url;\nfor(var i in msg.url.split('/')){\n    // node.error(i);\n    if (msg.url.split('/')[i].indexOf('.png')>-1){\n        // node.error(msg.url.split('/')[i].split('.png')[0]);\n        msg.filename = msg.url.split('/')[i].split('.png')[0] + '.png';\n    }\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 270,
+    "y": 360,
+    "wires": [
+      [
+        "c5c0802857ec85dc"
+      ]
+    ]
+  },
+  {
+    "id": "321ae0cd28ce93c5",
+    "type": "openai",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "api": "",
+    "query": "",
+    "creds": "cc2050a953749795",
+    "x": 490,
+    "y": 320,
+    "wires": [
+      [
+        "3da4a8098a72232f",
+        "de796efee52e68b3"
+      ]
+    ]
+  },
+  {
+    "id": "37a8b61e71d21285",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 320,
+    "wires": [
+      [
+        "9ad39dc23c4ed9c5"
+      ]
+    ]
+  },
+  {
+    "id": "9ad39dc23c4ed9c5",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "images/generations",
+    "func": "// 바닷가에서 우주선 위에서 뛰고 있는 웰시코기 강아지 그림을 하나 그려주세요. \n// Draw a picture of a Welsh Corgi puppy jumping on a spaceship at the beach.\n// Picture of a Welsh Corgi puppy watching the Qatar World Cup football match\n// A Jindo dog riding an elevator at the top of Baekdu Mountain\n// A painting of Elon Musk flying to Mars in space\n// An illustration of a mysterious sloth having fun in space\n// An illustration of a mysterious sloth prince having fun in his spaceship in space\n// An illustration of the mysterious Prince Pikachu attending his coronation in space\n// An illustration of the mysterious Prince Pikachu attending his coronation while being celebrated by several people in space.\n// Welsh corgi puppy at the coronation ceremony amidst congratulations from space\n// Photos where the goddess meets the mysterious sky castle\n// Art painting where the goddess meets the mystical sky castle\n// Mysterious White Tiger and White Goddess A work of art that exudes a mysterious atmosphere\n// An astronaut riding a horse in the style of Andy Warhol 앤디 워홀 스타일의 말을 타고 있는 우주비행사\n// An astronaut riding a horse in a photorealistic style\n// An astronaut lounging in a tropical resort in space in a vaporwave style\n// An astronaut playing basketball with cats in space in a photorealistic style\n// Michael Jordan can't dunk in realistic style\nmsg.api = 'images/generations';\nmsg.params = {\n    \"prompt\": \"Michael Jordan can't dunk in realistic style.\",\n    \"n\": 10,\n    \"size\": \"1024x1024\"\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 310,
+    "y": 320,
+    "wires": [
+      [
+        "321ae0cd28ce93c5"
+      ]
+    ]
+  },
+  {
+    "id": "3da4a8098a72232f",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 12",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "de796efee52e68b3",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "set res",
+    "func": "msg.payload = msg.payload.data;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 630,
+    "y": 320,
+    "wires": [
+      [
+        "319186907e6ca9bb"
+      ]
+    ]
+  },
+  {
+    "id": "319186907e6ca9bb",
+    "type": "split",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 770,
+    "y": 320,
+    "wires": [
+      [
+        "5b541733cb81f246"
+      ]
+    ]
+  },
+  {
+    "id": "5b541733cb81f246",
+    "type": "delay",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "3",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "allowrate": false,
+    "outputs": 1,
+    "x": 930,
+    "y": 320,
+    "wires": [
+      [
+        "1cf1f404ddbd6e11"
+      ]
+    ]
+  },
+  {
+    "id": "f6d67177e6fb50f1",
+    "type": "inject",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 240,
+    "wires": [
+      [
+        "0f3f92368f295f18"
+      ]
+    ]
+  },
+  {
+    "id": "0f3f92368f295f18",
+    "type": "function",
+    "z": "992f1604502dfb89",
+    "name": "function 1",
+    "func": "msg.payload = [{ \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-c677ghbJ7SZdZrt9EG8yUMXQ.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=3gvJt6bn8K1vWYfqEbaIPXiroG7kjYUdZgQcs0KN6fY%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-LR6RT1dq7SmJOSd50fmrgmZR.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=IENLX0pxGGYragdYfd1TUnz/7WeiBa0XSU9R8dcCyMo%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-Qh9zwcSpRJHHMuyAMpe1lhhO.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=cPCZ1Kd5NZyA%2BfdOMh5RbnL3/0sKt/Kt/afHps0GE08%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-vMO7phNsMXT8jOvtZXhB0NP3.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=DJ/W6eCOX4dSrlR65uF3I1zoCmgXFBWN0igAQx1atok%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-k0TB7A9t55CDk2HMlMSkLFUU.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=zz2a/fcmrmOPjN98qpsgLZLyG2uNSaWUhV/YDHqhlQ0%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-tyjOv1gTnyDoNF4g9df0W0UR.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=WqjCiIoDYglpqMjWttCnmeQko1lKlF38t3IcL95vLMQ%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-Fs3vtOUU122PuIUbaklIOtH8.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=WPZPzCVJoY/7YV46W4zgv4OBYLXTEV3A6sYfHOc8iqI%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-WKjU5AFfNGNEdwA4LAOSxuC3.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=n/r8Lk2V17V0yEPU5RJtoTY8d1%2BUo/8tHBIOYV0SVUc%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-eVsS8sxgT5ihQZDhYeNBXZ5p.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=OOj7p/mHhFUZhJ3nWLKfegjfHaUdtN79P8K9c/xRyYk%3D\" }, { \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-SmxuoMSGDcf6Id0DvHHr9RvB/user-b1aKLHzDKrM2Qf4lXFQmgLc6/img-8Oly7yoDGV55I4UYudnJfamB.png?st=2022-12-12T04%3A29%3A43Z&se=2022-12-12T06%3A29%3A43Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-12T04%3A29%3A56Z&ske=2022-12-13T04%3A29%3A56Z&sks=b&skv=2021-08-06&sig=vDc2Mbp6Z32xgYqWeUrz8OAzmgaJkmoQohnpmIjljhY%3D\" }];\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 290,
+    "y": 240,
+    "wires": [
+      [
+        "b63ea2bd42e15c38"
+      ]
+    ]
+  },
+  {
+    "id": "b63ea2bd42e15c38",
+    "type": "split",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 440,
+    "y": 240,
+    "wires": [
+      [
+        "055f7740ec3abcb9"
+      ]
+    ]
+  },
+  {
+    "id": "055f7740ec3abcb9",
+    "type": "delay",
+    "z": "992f1604502dfb89",
+    "name": "",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "3",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "allowrate": false,
+    "outputs": 1,
+    "x": 600,
+    "y": 240,
+    "wires": [
+      [
+        "910b1e9cb25f69b3"
+      ]
+    ]
+  },
+  {
+    "id": "910b1e9cb25f69b3",
+    "type": "debug",
+    "z": "992f1604502dfb89",
+    "name": "debug 13",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 790,
+    "y": 240,
     "wires": []
   },
   {
