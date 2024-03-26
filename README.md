@@ -14,14 +14,23 @@ command in your Node-RED user directory, typically `~/.node-red`
     npm install node-red-contrib-openai
 
 ## Wrapper openai  API  
-- https://beta.openai.com/docs/introduction
+- https://platform.openai.com/docs/api-reference/introduction
 
 ## Sample parameters
 ```js
-msg.api = 'completions';
+msg.api = 'chat/completions';
 msg.params = {
-    "model": "text-davinci-003",
-    "prompt": "Say this is a test",
+    "model": "gpt-3.5-turbo",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a helpful assistant."
+        },
+        {
+            "role": "user",
+            "content": "Hello!"
+        }
+    ],
     "max_tokens": 7,
     "temperature": 0
 }

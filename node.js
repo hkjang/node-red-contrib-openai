@@ -27,24 +27,28 @@ module.exports = function (RED) {
                 if(node.api){
                     node.url = 'https://api.openai.com/v1/'+ node.api.toLowerCase() +'';
                 }else{
-                    node.url = 'https://api.openai.com/v1/completions';
+                    node.url = 'https://api.openai.com/v1/chat/completions';
                 }
             }
-            // node.error(node.url);
+            node.error(node.url);
             node.options = {};
             node.options.headers = {};
 
             node.options.headers['Content-Type'] = 'application/json';
             node.options.headers['OpenAI-Organization'] = node.organization;
             node.options.headers['Authorization'] = 'Bearer ' + node.api_key;
-
             axios.post(node.url, node.params, node.options)
                 .then(function (response){
                     msg.payload = response.data;
                     node.send(msg);
-                }).catch(function (err){
-                    msg.payload = err;
-                    node.send(msg);
+                }).catch(function (error){
+                    if (error.response) {
+                        msg.payload = error.response.data;
+                        node.send(msg);
+                    }else {
+                        msg.payload = error;
+                        node.send(msg);
+                    }
                 });
         });
     }

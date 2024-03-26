@@ -49,7 +49,7 @@
     "type": "function",
     "z": "992f1604502dfb89",
     "name": "completions",
-    "func": "msg.api = 'completions';\nmsg.params = {\n    \"model\": \"text-davinci-003\",\n    \"prompt\": \"Say this is a test\",\n    \"max_tokens\": 7,\n    \"temperature\": 0\n}\nreturn msg;",
+    "func": "msg.api = 'chat/completions';\nmsg.params = {\n    \"model\": \"text-davinci-003\",\n    \"prompt\": \"Say this is a test\",\n    \"max_tokens\": 7,\n    \"temperature\": 0\n}\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
