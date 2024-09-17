@@ -30,7 +30,7 @@ module.exports = function (RED) {
                     node.url = 'https://api.openai.com/v1/chat/completions';
                 }
             }
-            node.error(node.url);
+            // node.error(node.url);
             node.options = {};
             node.options.headers = {};
 
